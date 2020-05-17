@@ -4,10 +4,19 @@
         <meta charset="UTF-8"/>
     </head>
     <body>
-        <button onclick='game()'>Jankenpon!</button>
+        <button onclick='playerPlay("rock")'>Rock</button>
+        <button onclick='playerPlay("paper")'>Paper</button>
+        <button onclick='playerPlay("scissors")'>Scissors</button>
         <div class='output'></div>
     </body>
-    <script>               
+    <script>                
+        let computerSelection = computerPlay()
+        let playerScore = 0
+        let computerScore = 0
+        let round = 1
+        let output = document.querySelector('.output');
+        output.innerHTML = ' ';
+
         function computerPlay() {
             let x = Math.floor(Math.random() * 3)
             switch (x) {
@@ -23,28 +32,36 @@
             }
         }
         
-        function game() {
-            output.innerHTML = ' ';
-            function playRound(playerSelection, computerSelection) {
-                
-                playerSelectionNeutral = playerSelection.toLowerCase()
+        function playerPlay(buttonPressed) {
+            if (buttonPressed == 'rock') {
+                playerSelection = 'Rock'
+                return game()
+            }   else if (buttonPressed == 'paper') {
+                playerSelection = 'Paper'
+                return game()
+            }   else if (buttonPressed == 'scissors') {
+                playerselection = 'Scissors'
+                return game()
+            }
+        } 
 
-                switch (playerSelectionNeutral) {
-                    case 'rock':
-                        playerSelectionNeutral = 'Rock'
+        function game() {
+
+            playRound(playerSelection, computerSelection)
+            
+            function playRound(playerSelection, computerSelection) {
+
+                switch (playerSelection) {
+                    case 'Rock':
                         return rockRound()
                         break;
-                    case 'paper':
-                        playerSelectionNeutral = 'Paper'
+                    case 'Paper':
                         return paperRound()
                         break;
-                    case 'scissors':
-                        playerSelectionNeutral = 'Scissors'
+                    case 'Scissors':
                         return scissorsRound()
                         break;
                     default:
-                        playerSelection = prompt('That is not a valid move.')
-                        return playRound(playerSelection, computerSelection)
                         break;
                 }
 
@@ -80,22 +97,22 @@
 
                 function win() {
                     playerScore += 1        
-                    const para = document.createElement('p');  
-                    para.textContent = 'Round ' + round + ': ' + 'You Win! ' + playerSelectionNeutral + ' beats ' + computerSelection ;
-                    output.appendChild(para);
+                    const para = document.createElement('p') 
+                    para.textContent = 'Round ' + round + ': ' + 'You Win! ' + playerSelection + ' beats ' + computerSelection
+                    output.appendChild(para)
                 }
 
                 function lose() {
                     computerScore += 1
-                    const para = document.createElement('p');  
-                    para.textContent = 'Round ' + round + ': ' + 'You Lose! ' + computerSelection + ' beats ' + playerSelectionNeutral ;
-                    output.appendChild(para);
+                    const para = document.createElement('p')
+                    para.textContent = 'Round ' + round + ': ' + 'You Lose! ' + computerSelection + ' beats ' + playerSelection
+                    output.appendChild(para)
                 }
 
                 function tie() {
-                    const para = document.createElement('p');  
-                    para.textContent = 'Round ' + round + ': ' + 'You Tied! ' ;
-                    output.appendChild(para);
+                    const para = document.createElement('p')
+                    para.textContent = 'Round ' + round + ': ' + 'You Tied!'
+                    output.appendChild(para)
                 }
             }
             
@@ -103,41 +120,40 @@
                 if (playerScore > computerScore) {
                     playerScore = 0
                     computerScore = 0
-                    const para = document.createElement('p');  
-                    para.textContent = 'You have Won the Game!' ;
-                    output.appendChild(para);
+                    const para = document.createElement('p')
+                    para.textContent = 'YOU HAVE WON THE GAME!'
+                    output.appendChild(para)
                 }   else if (computerScore > playerScore) {
                     playerScore = 0
                     computerScore = 0
-                    const para = document.createElement('p');  
-                    para.textContent = 'You have Lost the Game!' ;
-                    output.appendChild(para);
+                    const para = document.createElement('p')
+                    para.textContent = 'YOU HAVE LOST THE GAME!'
+                    output.appendChild(para)
                 }   else {
                     playerScore = 0
                     computerScore = 0
-                    const para = document.createElement('p');  
-                    para.textContent = 'This Game was a Tie!' ;
+                    const para = document.createElement('p')
+                    para.textContent = 'THIS GAME WAS A TIE!'
                     output.appendChild(para);
                 }
             }
-            let round = 0
-            while (round <= 5) {
-                if (round < 5) {
+
+            //while (round <= 5) {
+                if (round == 0) {
+                    output.innerHTML = ' ';
+                    round++
+                    return game()
+                }    else if (round < 5) {
                     round++
                     computerSelection = computerPlay()
-                    playerSelection = prompt('Rock, paper, or scissors?')
-                    playRound(playerSelection, computerSelection)
+                    //playerSelection = prompt('Rock, paper, or scissors?')
+                    //playRound(playerSelection, computerSelection)
                 }   else if (round == 5) {
                     result()
-                    round++
+                    //round++
+                    round = 0
                 }
-            }
+            //}        
         }
-        
-        let computerSelection = computerPlay()
-        let playerScore = 0
-        let computerScore = 0
-        let output = document.querySelector('.output');
-        output.innerHTML = ' ';
     </script>
 </html>
