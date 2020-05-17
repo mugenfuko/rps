@@ -3,10 +3,14 @@
     <head>
         <meta charset="UTF-8"/>
     </head>
+    <body>
+        <button onclick='game()'>Jankenpon!</button>
+        <div class='output'></div>
+    </body>
     <script>               
         function computerPlay() {
-            let i = Math.floor(Math.random() * 3)
-            switch (i) {
+            let x = Math.floor(Math.random() * 3)
+            switch (x) {
                 case 0:
                     return 'Rock'
                     break;
@@ -20,6 +24,7 @@
         }
         
         function game() {
+            output.innerHTML = ' ';
             function playRound(playerSelection, computerSelection) {
                 
                 playerSelectionNeutral = playerSelection.toLowerCase()
@@ -75,16 +80,22 @@
 
                 function win() {
                     playerScore += 1        
-                    return 'You Win! ' + playerSelectionNeutral + ' beats ' + computerSelection
+                    const para = document.createElement('p');  
+                    para.textContent = 'Round ' + round + ': ' + 'You Win! ' + playerSelectionNeutral + ' beats ' + computerSelection ;
+                    output.appendChild(para);
                 }
 
                 function lose() {
                     computerScore += 1
-                    return 'You Lose! ' + computerSelection + ' beats ' + playerSelectionNeutral
+                    const para = document.createElement('p');  
+                    para.textContent = 'Round ' + round + ': ' + 'You Lose! ' + computerSelection + ' beats ' + playerSelectionNeutral ;
+                    output.appendChild(para);
                 }
 
                 function tie() {
-                    return 'You Tied!'
+                    const para = document.createElement('p');  
+                    para.textContent = 'Round ' + round + ': ' + 'You Tied! ' ;
+                    output.appendChild(para);
                 }
             }
             
@@ -92,45 +103,41 @@
                 if (playerScore > computerScore) {
                     playerScore = 0
                     computerScore = 0
-                    console.log('You have Won the Game!')
+                    const para = document.createElement('p');  
+                    para.textContent = 'You have Won the Game!' ;
+                    output.appendChild(para);
                 }   else if (computerScore > playerScore) {
                     playerScore = 0
                     computerScore = 0
-                    console.log('You have Lost the Game!')
+                    const para = document.createElement('p');  
+                    para.textContent = 'You have Lost the Game!' ;
+                    output.appendChild(para);
                 }   else {
                     playerScore = 0
                     computerScore = 0
-                    console.log('This Game was a Tie!')
+                    const para = document.createElement('p');  
+                    para.textContent = 'This Game was a Tie!' ;
+                    output.appendChild(para);
                 }
             }
-            
-            computerSelection = computerPlay()
-            playerSelection = prompt('Rock, paper, or scissors?')
-            console.log(playRound(playerSelection, computerSelection))
-            
-            computerSelection = computerPlay()
-            playerSelection = prompt('Rock, paper, or scissors?')
-            console.log(playRound(playerSelection, computerSelection))
-           
-           computerSelection = computerPlay()
-            playerSelection = prompt('Rock, paper, or scissors?')
-            console.log(playRound(playerSelection, computerSelection))
-            
-            computerSelection = computerPlay()
-            playerSelection = prompt('Rock, paper, or scissors?')
-            console.log(playRound(playerSelection, computerSelection))
-            
-            computerSelection = computerPlay()
-            playerSelection = prompt('Rock, paper, or scissors?')
-            console.log(playRound(playerSelection, computerSelection))
-            result()
+            let round = 0
+            while (round <= 5) {
+                if (round < 5) {
+                    round++
+                    computerSelection = computerPlay()
+                    playerSelection = prompt('Rock, paper, or scissors?')
+                    playRound(playerSelection, computerSelection)
+                }   else if (round == 5) {
+                    result()
+                    round++
+                }
+            }
         }
         
         let computerSelection = computerPlay()
         let playerScore = 0
         let computerScore = 0
+        let output = document.querySelector('.output');
+        output.innerHTML = ' ';
     </script>
-    <body>
-        <button onclick="game()">Jankenpon!</button> 
-    </body>
 </html>
