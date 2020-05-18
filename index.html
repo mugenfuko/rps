@@ -3,11 +3,43 @@
     <head>
         <meta charset="UTF-8"/>
     </head>
+    <style>
+        p {
+            margin: 0;
+            padding: 16px;
+        }
+        .output {
+            text-align: center;
+            height: 320px;
+            width: 50vw;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .buttons {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            width: 600px;
+            height: 100px;
+            margin: auto;
+        }
+        button {
+            background-color: orangered;
+            width: 100px;
+            height: 100px;
+            font-size: 20px;
+        }
+    </style>
     <body>
-        <button onclick='playerPlay("rock")'>Rock</button>
-        <button onclick='playerPlay("paper")'>Paper</button>
-        <button onclick='playerPlay("scissors")'>Scissors</button>
         <div class='output'></div>
+        <div class='buttons'>
+            <div><button onclick='playerPlay("rock")'>Rock</button></div>
+            <div><button onclick='playerPlay("paper")'>Paper</button></div>
+            <div><button onclick='playerPlay("scissors")'>Scissors</button></div>
+        </div>
     </body>
     <script>                
         let computerSelection = computerPlay()
@@ -40,7 +72,7 @@
                 playerSelection = 'Paper'
                 return game()
             }   else if (buttonPressed == 'scissors') {
-                playerselection = 'Scissors'
+                playerSelection = 'Scissors'
                 return game()
             }
         } 
